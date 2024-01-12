@@ -9,6 +9,7 @@ import categoryRoutes from './routes/Category';
 import chatRoutes from './routes/Chat';
 import commentRoutes from './routes/Comment';
 import messageRoutes from './routes/Message';
+import songRoutes from './routes/Song';
 import cors from 'cors';
 
 const router = express();
@@ -66,6 +67,7 @@ const StartServer = () => {
     router.use('/chats', chatRoutes);
     router.use('/comments', commentRoutes);
     router.use('/messages', messageRoutes);
+    router.use('/songs', songRoutes);
 
     /** Healthcheck */
     router.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));

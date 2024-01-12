@@ -7,6 +7,7 @@ import { IMessage } from '../models/Message';
 import { IChat } from '../models/Chat';
 import { IComment } from '../models/Comment';
 import { ICategory } from '../models/Category';
+import { ISong } from '../models/Song';
 
 export const ValidateSchema = (schema: ObjectSchema) => {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -152,6 +153,24 @@ export const Schemas = {
                 .required(),
             text: Joi.string().required(),
             punctuation: Joi.number().optional()
+        })
+    },
+    song: {
+        create: Joi.object<ISong>({
+            songName: Joi.string().optional(),
+            categoryName: Joi.string().required(),
+            releaseyear: Joi.date().required(),
+            author: Joi.string()
+                .regex(/^[0-9a-fA-F]{24}/)
+                .required()
+        }),
+        update: Joi.object<ISong>({
+            songName: Joi.string().optional(),
+            categoryName: Joi.string().required(),
+            releaseyear: Joi.date().required(),
+            author: Joi.string()
+                .regex(/^[0-9a-fA-F]{24}/)
+                .required()
         })
     }
 };

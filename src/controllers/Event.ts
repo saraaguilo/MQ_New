@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import Event from '../models/Event';
+import User from '../models/User';
 
 const createEvent = (req: Request, res: Response, next: NextFunction) => {
     const { coordinates, eventName, idCategory, date, idUser, description, assistants, link, photo, idChat, idComments } = req.body;
@@ -19,7 +20,17 @@ const createEvent = (req: Request, res: Response, next: NextFunction) => {
         idChat,
         idComments
     });
+    /*
+    User.findByIdAndUpdate(idUser, {$push: { createdEventsId: event._id }}, { new: true})
+        .then(updatedUser) => {
+            console.log('Usuario actualizado:', updatedUser);
 
+        })
+        .catch((error)) => {
+            console.error('Error al actualizar usuario:', error);
+
+        });
+*/
     return event
         .save()
         .then((event) => res.status(201).json(event))
